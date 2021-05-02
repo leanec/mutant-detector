@@ -8,8 +8,8 @@ Como entrada se recibirá un **array de Strings** que representan cada fila de u
 
 ## Requerimientos
 
-Composer
-PHP 7.4+
+- Composer
+- PHP 7.4+
 
 ## Instalación Local
 
@@ -26,6 +26,25 @@ composer install
 # Ejecutar servidor PHP interno
 php -S localhost:8000
 
+```
+
+## Uso
+
+Luego de instalar y poner en funcionamiento la API puede accederse usando un cliente REST (Ej: Postman).
+
+### Endpoint: /mutant
+
+Analiza si el ADN es mutante o no. En caso que sea mutante retorna **200 OK** y si no lo es **403 Forbidden**. Ej: 
+
+```
+POST localhost:8080/mutant
+{
+    "dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]
+}
+```
+
+```
+Response: 200 OK
 ```
 
 ## License
