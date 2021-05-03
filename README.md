@@ -10,6 +10,7 @@ Como entrada se recibirá un **array de Strings** que representan cada fila de u
 
 - Composer
 - PHP 7.4+
+- MySQL 5.7+
 
 ## Instalación Local
 
@@ -22,6 +23,12 @@ cd mutant-detector
 
 # Instalar dependencias
 composer install
+
+# Crear la base de datos
+mysql -u root -p < database/database.sql
+
+# Crear y editar el archivo .env
+cp .env.example .env
 
 # Ejecutar servidor PHP interno
 php -S localhost:8000
