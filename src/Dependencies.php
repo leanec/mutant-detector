@@ -1,8 +1,11 @@
 <?php
 
-$container = $app->getContainer();
+declare(strict_types = 1);
 
-$container['db'] = static function ($container) {
+use Psr\Container\ContainerInterface;
+
+$container['db'] = static function (ContainerInterface $container) : PDO 
+{
     $database = $container->get('settings')['db'];
     $dsn = sprintf(
         'mysql:host=%s;dbname=%s;port=%s;charset=utf8',
@@ -18,10 +21,10 @@ $container['db'] = static function ($container) {
     return $pdo;
 };
 
-$container['record_repository'] = static fn ($container) => new App\Repositories\RecordRepository (
+$container['record_repository'] = static fn (ContainerInterface $container) => new App\Repositories\RecordRepository (
     $container->get('db')
 );
 
-$container['record_service'] = static fn ($container) => new App\Services\RecordService (
+$container['record_service'] = static fn (ContainerInterface $container) => new App\Services\RecordService (
     $container->get('record_repository')
 );
