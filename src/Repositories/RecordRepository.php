@@ -53,4 +53,16 @@ class RecordRepository
 
         return $this->getRecord($dna);
     }
+
+    public function getStats(): array
+    {
+        $query = "
+            SELECT COUNT(NULLIF(mutant,0)) as mutants, COUNT(NULLIF(mutant,1)) as humans 
+            FROM `records`
+        ";
+        $statement = $this->getDb()->prepare($query);
+        $statement->execute();
+
+        return (array) $statement->fetch();
+    }
 }

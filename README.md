@@ -44,7 +44,7 @@ Luego de instalar y poner en funcionamiento la API puede accederse usando un cli
 Analiza si el ADN es mutante o no. En caso que sea mutante retorna **200 OK** y si no lo es **403 Forbidden**. Ej: 
 
 ```
-POST localhost:8080/mutant
+POST localhost:8000/mutant
 {
     "dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]
 }
@@ -52,6 +52,23 @@ POST localhost:8080/mutant
 
 ```
 Response: 200 OK
+```
+
+### Endpoint: /stats
+
+Retorna estadísticas de los ADN analizados. Cantidad de mutantes, cantidad de humanos y ratio mutantes/humanos. Ej: 
+
+```
+GET localhost:8000/stats
+```
+
+```
+Response: 200 OK
+{
+    "count_mutant_dna": 40,
+    "count_human_dna": 100,
+    "ratio": 0.4
+}
 ```
 
 ## License

@@ -37,4 +37,22 @@ class RecordService
 
         return $record;
     }
+
+    public function getStats() : array
+    {
+        $stats = $this->getRecordRepository()->getStats();
+
+        return $this->processStats($stats);
+    }
+
+    protected function processStats(array $stats) : array
+    {
+        $processedStats = [
+            "count_mutant_dna" => $stats["mutants"],
+            "count_human_dna" => $stats["humans"],
+            "ratio" => $stats["humans"] > 0 ? $stats["mutants"] / $stats["humans"] : 0
+        ];
+
+        return $processedStats;
+    }
 }

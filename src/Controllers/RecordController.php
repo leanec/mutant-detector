@@ -55,4 +55,21 @@ class RecordController {
                     ->withStatus(403);
         }
     }
+
+    /**
+     * Obtiene estadisticas de los ADN analizados
+     * 
+     * @param  Request      $request  PSR7 request
+     * @param  Response     $response PSR7 response
+     *
+     * @return Response
+     */
+    public function stats(Request $request, Response $response) : Response
+    {
+        $input = $request->getParsedBody();
+        
+        $records = $this->getRecordService()->getStats();
+
+        return $response->withJson($records, 200);
+    }
 }
