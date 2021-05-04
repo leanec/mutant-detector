@@ -43,14 +43,14 @@ class Detector {
                     }
                 }
 
-                if ($rowNum + 1 >= Detector::SAME_CHARS_ON_SEQ && $colNum + 1 >= 4 && Detector::checkMainDiagonal($bases, $rowNum, $colNum, 1)) {
+                if ($rowNum + 1 >= Detector::SAME_CHARS_ON_SEQ && $colNum + 1 >= Detector::SAME_CHARS_ON_SEQ && Detector::checkMainDiagonal($bases, $rowNum, $colNum, 1)) {
                     $sequenceCount++;
                     if ($sequenceCount === Detector::SEQUENCES_TO_MUTANT) {
                         return true;
                     }
                 }
 
-                if ($rowNum + 1 >= Detector::SAME_CHARS_ON_SEQ && $colNum <= $dnaSize - 4 && Detector::checkAntiDiagonal($bases, $rowNum, $colNum, 1)) {
+                if ($rowNum + 1 >= Detector::SAME_CHARS_ON_SEQ && $colNum <= $dnaSize - Detector::SAME_CHARS_ON_SEQ && Detector::checkAntiDiagonal($bases, $rowNum, $colNum, 1)) {
                     $sequenceCount++;
                     if ($sequenceCount === Detector::SEQUENCES_TO_MUTANT) {
                         return true;
