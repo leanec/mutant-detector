@@ -22,7 +22,7 @@ class RecordTest extends BaseTest
 
         $result = (string) $response->getBody();
 
-        $this->assertEquals(403, $response->getStatusCode());
+        $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertStringContainsString('DNA is empty', $result);
     }
@@ -40,7 +40,7 @@ class RecordTest extends BaseTest
 
         $result = (string) $response->getBody();
 
-        $this->assertEquals(403, $response->getStatusCode());
+        $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertStringContainsString('DNA must be an array', $result);
     }
@@ -58,7 +58,7 @@ class RecordTest extends BaseTest
 
         $result = (string) $response->getBody();
 
-        $this->assertEquals(403, $response->getStatusCode());
+        $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertStringContainsString('DNA must be an array NxN', $result);
     }
@@ -76,7 +76,7 @@ class RecordTest extends BaseTest
 
         $result = (string) $response->getBody();
 
-        $this->assertEquals(403, $response->getStatusCode());
+        $this->assertEquals(400, $response->getStatusCode());
         $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertStringContainsString('DNA must contain only A,T,C,G', $result);
     }

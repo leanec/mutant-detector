@@ -20,7 +20,7 @@ class Validator
             $response->getBody()->write('DNA is empty');
             return $response
                 ->withHeader('Content-Type', 'application/json')
-                ->withStatus(403);
+                ->withStatus(400);
         }
     
         $dna = $input['dna'];
@@ -29,7 +29,7 @@ class Validator
             $response->getBody()->write('DNA must be an array');
             return $response
                 ->withHeader('Content-Type', 'application/json')
-                ->withStatus(403);
+                ->withStatus(400);
         }
 
         $dnaSize = sizeof($dna);
@@ -39,14 +39,14 @@ class Validator
                 $response->getBody()->write('DNA must be an array NxN');
                 return $response
                     ->withHeader('Content-Type', 'application/json')
-                    ->withStatus(403);
+                    ->withStatus(400);
             }
 
             if (preg_match('/[^ATCG]/', $fila)) {
                 $response->getBody()->write('DNA must contain only A,T,C,G');
                 return $response
                     ->withHeader('Content-Type', 'application/json')
-                    ->withStatus(403);
+                    ->withStatus(400);
             }
         }
 
