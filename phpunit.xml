@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php" testdox="true">
+  <coverage includeUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <exclude>
+      <directory suffix="App.php">src</directory>
+      <directory suffix=".php">tests</directory>
+      <directory suffix=".php">vendor</directory>
+    </exclude>
+  </coverage>
+  <testsuites>
+    <testsuite name="mutant-detector">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

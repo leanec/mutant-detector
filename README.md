@@ -31,7 +31,7 @@ mysql -u root -p < database/database.sql
 cp .env.example .env
 
 # Ejecutar servidor PHP interno
-php -S localhost:8000
+php -S localhost:8000 -t public
 
 ```
 
@@ -69,6 +69,19 @@ Response: 200 OK
     "count_human_dna": 100,
     "ratio": 0.4
 }
+```
+
+## Pruebas
+
+Con la API instalada y en funcionamiento pueden ejecutarse los siguientes comandos
+
+``` bash
+# Ejecutar pruebas
+composer run test
+
+# Comprobar el coverage
+composer run coverage
+
 ```
 
 ## License
