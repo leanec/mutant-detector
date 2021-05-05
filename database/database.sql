@@ -1,7 +1,3 @@
---
--- Base de datos: `mutant_detector`
---
-CREATE DATABASE IF NOT EXISTS `mutant_detector` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `mutant_detector`;
 
 -- --------------------------------------------------------

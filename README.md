@@ -24,11 +24,11 @@ cd mutant-detector
 # Instalar dependencias
 composer install
 
-# Crear la base de datos
-mysql -u root -p < database/database.sql
-
 # Crear y editar el archivo .env
 cp .env.example .env
+
+# Inicializar la base de datos
+composer init-db
 
 # Ejecutar servidor PHP interno
 php -S localhost:8000 -t public
@@ -76,13 +76,27 @@ Response: 200 OK
 Con la API instalada y en funcionamiento pueden ejecutarse los siguientes comandos
 
 ``` bash
+# Limpiar base de datos
+composer init-db
+
 # Ejecutar pruebas
-composer run test
+composer test
+
+# Limpiar base de datos
+composer init-db
 
 # Comprobar el coverage
-composer run coverage
-
+composer coverage
 ```
+
+### Reporte Coverage
+``` bash               
+ Summary:                  
+  Classes: 83.33% (5/6)    
+  Methods: 96.15% (25/26)  
+  Lines:   99.39% (163/164)
+```
+
 
 ## License
 [MIT License](https://github.com/leanec/mutant-detector/blob/main/LICENSE)

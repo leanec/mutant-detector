@@ -22,6 +22,7 @@
         }
     },
     "scripts": {
+        "init-db": "php database/init-db.php",
         "test": "phpunit",
         "coverage": "phpunit --coverage-html=coverage"
     }
