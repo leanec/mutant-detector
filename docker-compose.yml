@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  
+  mutant-detector-mysql:
+    image: mysql:5.7
+    container_name: mutant-detector-mysql
+    tty: true
+    ports:
+      - "33060:3306"
+    environment: 
+        - MYSQL_ROOT_HOST=${DB_HOST} 
+        - MYSQL_USER=${DB_USER}
+        - MYSQL_PASSWORD=${DB_PASS}
+        - MYSQL_DATABASE=${DB_NAME}
+        - MYSQL_ROOT_PASSWORD=${DB_PASS}  
+    volumes:
+      - mutant-detector-dbdata:/var/lib/mysql/
+      - ./database/database.sql:/docker-entrypoint-initdb.d/database.sql 
+    networks:
+      - mutant-detector-network
+
+  mutant-detector-app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: mutant-detector-app
+    tty: true
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - mutant-detector-network
+
+  mutant-detector-nginx:
+    image: nginx:alpine
+    container_name: mutant-detector-nginx
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - mutant-detector-network
+
+networks:
+  mutant-detector-network:
+    driver: bridge
+
+volumes:
+  mutant-detector-dbdata:
