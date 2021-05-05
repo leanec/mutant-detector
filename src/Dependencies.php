@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 use Psr\Container\ContainerInterface;
 
+// Database
 $container['db'] = static function (ContainerInterface $container) : PDO 
 {
     $database = $container->get('settings')['db'];
@@ -21,6 +22,7 @@ $container['db'] = static function (ContainerInterface $container) : PDO
     return $pdo;
 };
 
+// Repositories and services
 $container['record_repository'] = static fn (ContainerInterface $container) => new App\Repositories\RecordRepository (
     $container->get('db')
 );
@@ -28,3 +30,14 @@ $container['record_repository'] = static fn (ContainerInterface $container) => n
 $container['record_service'] = static fn (ContainerInterface $container) => new App\Services\RecordService (
     $container->get('record_repository')
 );
+
+// Error handlers
+$container['errorHandler'] = function (ContainerInterface $container) : \Slim\Handlers\Error
+{
+    return new App\Handlers\ApiError();
+};
+
+$container['notFoundHandler'] = function (ContainerInterface $container) : \Slim\Handlers\NotFound
+{
+    return new App\Handlers\NotFound();
+};
