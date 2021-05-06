@@ -1,0 +1,26 @@
+config:
+  target: "http://localhost:8000/"
+  processor: "./post-body.js"
+  phases:
+    - duration: 30
+      arrivalRate: 10
+      name: Warm up
+    - duration: 60
+      arrivalRate: 10
+      rampTo: 100
+      name: Ramp up load
+    - duration: 300
+      arrivalRate: 100
+      name: Sustained load
+scenarios:
+  - name: "Stats"
+    flow:
+      - get:
+          url: "/stats"
+  - name: "Mutant"
+    beforeScenario: generatePostBody
+    flow:
+      - post:
+          url: "/mutant"
+          json:
+            "{{ data }}"

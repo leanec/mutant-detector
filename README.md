@@ -97,6 +97,15 @@ composer coverage
   Lines:   96.81% (182/188)
 ```
 
+### Load Test
+``` bash
+# Instalar artillery               
+npm install -g artillery
+
+# Configurar .yml y luego correr test
+artillery run benchmark/artillery.yml --output=benchmark/report.json
+
+```
 
 ## License
 [MIT License](https://github.com/leanec/mutant-detector/blob/main/LICENSE)
