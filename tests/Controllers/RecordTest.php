@@ -10,6 +10,24 @@ class RecordTest extends BaseTest
 {
 
     /**
+     * Test bad Endpoint.
+     */
+    public function testBadEndPoint(): void
+    {
+        $response = $this->runApp(
+            'POST', 
+            '/mutants',
+            []
+        );
+
+        $result = (string) $response->getBody();
+
+        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
+        $this->assertStringContainsString('Endpoint not found', $result);
+    }
+
+    /**
      * Test empty data.
      */
     public function testDnaIsEmpty(): void
@@ -218,12 +236,74 @@ class RecordTest extends BaseTest
         $response = $this->runApp(
             'POST', 
             '/mutant',
-            ["dna" => ["ATCGGC","CAGTGC","TGGTGT","GGAATG","CGCTTA","TCTCTG"]]
+            ["dna" => ["ATCGGC","CAGGGC","TGGTGT","GGAATG","CGCTTA","TCTCTG"]]
         );
 
         $result = (string) $response->getBody();
 
         $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
+        $this->assertStringNotContainsString('error', $result);
+    }
+
+    /**
+     * Test mutant large dna.
+     */
+    public function testLargeDnas(): void
+    {
+        $response = $this->runApp(
+            'POST', 
+            '/mutant',
+            ["dna" => ["CAGCGCCCTT","TAATAAATTA","CAGCGGATGT","GCTCTTTGTA","GAATAGCGCA","CCCAGTGTTG","CACGTATCGG","TGGACCACAA","TTATGCAGAT","ATTTGAGATA"]]
+        );
+
+        $result = (string) $response->getBody();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
+        $this->assertStringNotContainsString('error', $result);
+
+        $response = $this->runApp(
+            'POST', 
+            '/mutant',
+            ["dna" => ["TCCACAGGAT","GAGCAGGCAA","TAGAACTCTT","GGTTCCTTGC","TTGGCGTCAT","AGAACTGTAG","ACGGGCAGAC","ATAGAGTTCT","TAGTAAGAGT","GGCCCTCCAA"]]
+        );
+
+        $result = (string) $response->getBody();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
+        $this->assertStringNotContainsString('error', $result);
+
+        $response = $this->runApp(
+            'POST', 
+            '/mutant',
+            ["dna" => ["ACAGTCTAGTT","TGTGTCTGATC","TTCTGGCGACC","CACCGATTCCT","TCTGCGGCCAA","TCTTCACGTAC","GACAGCACAAG","GCCACAATAGA","GTCCTGCAACG","CGATCATCGCG","TACTATGGAAC"]]
+        );
+
+        $result = (string) $response->getBody();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
+        $this->assertStringNotContainsString('error', $result);
+
+        $response = $this->runApp(
+            'POST', 
+            '/mutant',
+            ["dna" => ["ATTACCACGG","CTTCCTTTAA","GATCTATTGT","GTGCTCCGAG","AAAGTCGGAC","TAACCGTGTG","GTGGTTAAGC","CATTGGCCAT","GGTGGTTAAT","TTGGACAGCT"]]
+        );
+
+        $result = (string) $response->getBody();
+
+        $response = $this->runApp(
+            'POST', 
+            '/mutant',
+            ["dna" => ["CGCGTTGAG","ACAATCCGA","AGATGCGTT","GGTATTACT","GTGTGGGTC","GTGAGTTAC","AGACCACTT","TGTTTGCTG","AGACTCTTA"]]
+        );
+
+        $result = (string) $response->getBody();
+
+        $this->assertEquals(403, $response->getStatusCode());
         $this->assertEquals('application/json', $response->getHeaderLine('Content-Type'));
         $this->assertStringNotContainsString('error', $result);
     }

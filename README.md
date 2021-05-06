@@ -85,16 +85,16 @@ composer test
 # Limpiar base de datos
 composer init-db
 
-# Comprobar el coverage
+# Comprobar el coverage (requiere Xdebug activado en PHP)
 composer coverage
 ```
 
 ### Reporte Coverage
 ``` bash               
  Summary:                  
-  Classes: 83.33% (5/6)    
-  Methods: 96.15% (25/26)  
-  Lines:   99.39% (163/164)
+  Classes: 75.00% (6/8)    
+  Methods: 92.86% (26/28)  
+  Lines:   96.81% (182/188)
 ```
 
 
