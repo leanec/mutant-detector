@@ -22,13 +22,22 @@ $container['db'] = static function (ContainerInterface $container) : PDO
     return $pdo;
 };
 
+// Redis
+$container['redis_service'] = static function (ContainerInterface $container): App\Services\RedisService 
+{
+    $redis = $container->get('settings')['redis'];
+
+    return new App\Services\RedisService(new \Predis\Client($redis['url']));
+};
+
 // Repositories and services
 $container['record_repository'] = static fn (ContainerInterface $container) => new App\Repositories\RecordRepository (
     $container->get('db')
 );
 
 $container['record_service'] = static fn (ContainerInterface $container) => new App\Services\RecordService (
-    $container->get('record_repository')
+    $container->get('record_repository'),
+    $container->get('redis_service')
 );
 
 // Error handlers

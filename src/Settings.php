@@ -12,5 +12,9 @@ return [
             'pass' => $_SERVER['DB_PASS'],
             'port' => $_SERVER['DB_PORT'],
         ],
+        'redis' => [
+            'enabled' => $_SERVER['REDIS_ENABLED'],
+            'url' => $_SERVER['REDIS_URL'],
+        ],
     ],
 ];

@@ -2,6 +2,17 @@ version: '3'
 
 services:
   
+  mutant-detector-redis:
+    image: redis:6.0-alpine
+    container_name: mutant-detector-redis
+    tty: true
+    ports:
+        - "63790:6379"
+    volumes:
+        - mutant-detector-redisdata:/data
+    networks:
+        - mutant-detector-network
+
   mutant-detector-mysql:
     image: mysql:5.7
     container_name: mutant-detector-mysql
@@ -50,3 +61,4 @@ networks:
 
 volumes:
   mutant-detector-dbdata:
+  mutant-detector-redisdata:
