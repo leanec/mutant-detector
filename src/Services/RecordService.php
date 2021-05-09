@@ -21,9 +21,12 @@ class RecordService
         return $this->recordRepository;
     }
 
-    public function getOne(array $dna) : object
+    public function getOne(array $dna) : ?object
     {
         $record = $this->getRecordRepository()->getRecord(json_encode($dna));
+        if (!is_null($record)) {
+            $record = $record->toJson();
+        }
 
         return $record;
     }
@@ -35,7 +38,7 @@ class RecordService
         $record->updateMutant($mutant ? 1 : 0);
         $record = $this->getRecordRepository()->create($record);
 
-        return $record;
+        return $record->toJson();
     }
 
     public function getStats() : array

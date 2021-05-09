@@ -20,7 +20,7 @@ class RecordRepository
         return $this->database;
     }
 
-    public function getRecord($dna) : Record
+    public function getRecord(String $dna) : ?Record
     {
         $query = '
             SELECT * FROM `records` WHERE `dna` = :dna
@@ -29,8 +29,8 @@ class RecordRepository
         $statement->bindParam('dna', $dna);
         $statement->execute();
         $record = $statement->fetchObject(Record::class);
-        if (! $record) {
-            throw new \Exception('Record not found.', 404);
+        if (!$record) {
+            return null;
         }
 
         return $record;

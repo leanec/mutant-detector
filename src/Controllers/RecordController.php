@@ -37,15 +37,12 @@ class RecordController {
         $input = $request->getParsedBody();
         $dna = $input['dna'];
         
-        try{
-            $record = $this->getRecordService()->getOne($dna);
-            $mutant = $record->getMutant();
-        } catch (\Exception $e) {
-            $mutant = Detector::checkDna($dna);
-            $record = $this->getRecordService()->create($dna, $mutant);
+        $record = $this->getRecordService()->getOne($dna);
+        if (is_null($record)) {
+            $record = $this->getRecordService()->create($dna, Detector::checkDna($dna));
         }
 
-        if ($mutant) {
+        if ($record->mutant) {
             return $response
                     ->withHeader('Content-Type', 'application/json')
                     ->withStatus(200);

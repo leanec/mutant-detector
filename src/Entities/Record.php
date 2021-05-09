@@ -6,13 +6,12 @@ namespace App\Entities;
 
 class Record
 {
-    private int $id;
     private string $dna;
     private int $mutant;
 
-    public function getId(): int
+    public function toJson(): object
     {
-        return $this->id;
+        return json_decode((string) json_encode(get_object_vars($this)), false);
     }
 
     public function getDna(): string
