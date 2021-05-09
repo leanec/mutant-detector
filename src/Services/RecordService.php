@@ -87,6 +87,7 @@ class RecordService
         } else {
             $record = $this->getDbRecord($dna);    
             if (!is_null($record)) {
+                $record = $record->toJson();
                 $this->redisService->set($key, $record);
             }
         }
