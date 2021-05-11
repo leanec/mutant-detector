@@ -7,6 +7,9 @@ RUN apt-get install -y curl unzip
 # Install extensions
 RUN docker-php-ext-install pdo_mysql
 RUN pecl install xdebug-2.9.8 && docker-php-ext-enable xdebug
+RUN pecl install -o -f redis \
+&&  rm -rf /tmp/pear \
+&&  docker-php-ext-enable redis
 
 # Install composer
 RUN apt-get install -y mc

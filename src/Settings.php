@@ -14,7 +14,8 @@ return [
         ],
         'redis' => [
             'enabled' => $_SERVER['REDIS_ENABLED'],
-            'url' => $_SERVER['REDIS_URL'],
+            'host' => $_SERVER['REDIS_HOST'],
+            'port' => $_SERVER['REDIS_PORT'],
         ],
     ],
 ];

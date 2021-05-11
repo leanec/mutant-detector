@@ -6,7 +6,9 @@ require __DIR__ . '/../vendor/autoload.php';
 $baseDir = __DIR__ . '/../';
 $dotenv = \Dotenv\Dotenv::createImmutable($baseDir);
 $dotenv->load();
-$dotenv->required(['DEVELOPMENT', 'DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PORT']);
+$dotenv->required(['DEVELOPMENT', 'DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PORT', 'REDIS_ENABLED', 'REDIS_HOST', 'REDIS_PORT']);
+$dotenv->required('DB_PORT')->isInteger();
+$dotenv->required('REDIS_PORT')->isInteger();
 
 // Cargando configuracion
 $settings = require __DIR__ . '/Settings.php';

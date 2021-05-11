@@ -23,11 +23,17 @@ $container['db'] = static function (ContainerInterface $container) : PDO
 };
 
 // Redis
-$container['redis_service'] = static function (ContainerInterface $container): App\Services\RedisService 
+$container['redis_service'] = static function (ContainerInterface $container): ?App\Services\RedisService 
 {
     $redis = $container->get('settings')['redis'];
-
-    return new App\Services\RedisService(new \Predis\Client($redis['url']));
+    
+    if (filter_var($redis['enabled'], FILTER_VALIDATE_BOOLEAN)) {
+        $client = new Redis();
+        $client->connect($redis['host'], intval($redis['port']));
+        return new App\Services\RedisService($client);
+    }
+    
+    return null;
 };
 
 // Repositories and services

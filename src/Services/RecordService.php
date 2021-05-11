@@ -14,9 +14,9 @@ class RecordService
 
     protected RecordRepository $recordRepository;
 
-    protected RedisService $redisService;
+    protected ?RedisService $redisService;
 
-    public function __construct(RecordRepository $recordRepository, RedisService $redisService) 
+    public function __construct(RecordRepository $recordRepository, ?RedisService $redisService) 
     {
         $this->recordRepository = $recordRepository;
         $this->redisService = $redisService;

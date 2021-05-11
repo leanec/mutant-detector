@@ -4,15 +4,13 @@ declare(strict_types = 1);
 
 namespace App\Services;
 
-use Predis\Client;
-
 final class RedisService
 {
     public const PROJECT_NAME = 'mutant-detector';
 
-    private Client $redis;
+    private \Redis $redis;
 
-    public function __construct(Client $redis)
+    public function __construct(\Redis $redis)
     {
         $this->redis = $redis;
     }
